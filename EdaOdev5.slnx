@@ -1,5 +1,6 @@
 <Solution>
-  <Folder Name="/Solution Items/">
+  <Folder Name="/Rapor/">
+    <File Path="../../../Desktop/eda_har_odev5_rapor.pdf" />
     <File Path="proje.txt" />
   </Folder>
   <Project Path="ConsoleApp/ConsoleApp.csproj">
