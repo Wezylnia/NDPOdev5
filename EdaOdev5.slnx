@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="proje.txt" />
+  </Folder>
+  <Project Path="ConsoleApp/ConsoleApp.csproj">
+    <BuildDependency Project="EdaOdev5/EdaOdev5.csproj" />
+  </Project>
+  <Project Path="EdaOdev5/EdaOdev5.csproj" />
+</Solution>

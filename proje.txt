@@ -1,0 +1,77 @@
+﻿ÖDEV 09: C# Temelleri, Reflection ve ASP.NET Core Web API Entegrasyonu
+Ödevin Amacı ve Senaryo
+Bu ödevde, modern yazılım geliştirme tekniklerini bütüncül bir senaryo içerisinde birleştirmeniz beklenmektedir. Hedefimiz; Struct, Exception Handling, Attribute ve Reflection gibi temel C# konseptlerini, ASP.NET Core Web API mimarisi (Middleware, Filters, Routing) ile harmanlayarak çalışır bir sistem ortaya koymaktır.
+Ödev iki ana bölümden oluşmaktadır:
+1.	Console Uygulaması: Temel C# yapıları ve Reflection ile metadata analizi.
+2.	Web API Uygulaması: Attribute tabanlı validasyon, middleware/filter mimarisi ve sistemi Reflection ile tarayan "akıllı" bir endpoint geliştirilmesi.
+🚀 BÖLÜM 1: Console Uygulaması (Temeller ve Reflection)
+Aynı Solution altında bir Console Application oluşturunuz ve aşağıdaki adımları gerçekleştiriniz:
+1.1. Struct ve Değer Tipleri
+•	Bir öğrenciyi temsil eden Student isminde bir struct tanımlayınız (Class değil).
+•	İçerisinde Id, Name ve Gpa (Not Ortalaması) alanları bulunmalıdır.
+•	Main bloğunda bu struct'tan en az 3 farklı örnek oluşturup bir listeye ekleyiniz.
+•	Listeyi ekrana yazdırarak struct yapılarının değer tipi (value type) olarak davranışını gözlemleyiniz.
+1.2. Exception Handling (Hata Yönetimi)
+•	Kullanıcıdan sayı alarak matematiksel işlem yapan basit bir blok yazınız.
+•	Bu blokta try/catch/finally yapısını kurunuz.
+•	Özellikle şu iki hatayı ayrı ayrı yakalayınız:
+o	DivideByZeroException: Sıfıra bölme hatası.
+o	FormatException: Sayı yerine harf girilmesi hatası.
+•	Her durumda (hata olsa da olmasa da) çalışacak olan finally bloğunun çalıştığını konsol çıktısı ile kanıtlayınız.
+1.3. Obsolete Attribute Kullanımı
+•	En az iki adet "eski" (kullanımdan kaldırılacak) metot yazınız.
+•	Metot 1: [Obsolete] attribute'unu kullanarak sadece uyarı (warning) verecek şekilde (isError=false) işaretleyiniz.
+•	Metot 2: [Obsolete] attribute'unu kullanarak derleme hatası (error) verecek şekilde (isError=true) işaretleyiniz. (Not: Kodu derlerken bu satırı yorum satırına almanız gerekebilir, raporda bu durumu belirtiniz).
+1.4. Custom Attribute ve Reflection Raporu (Kritik Bölüm)
+•	Kendi tasarladığınız bir Custom Attribute sınıfı yazınız (Örn: [DeveloperInfo] veya [CodeVersion]).
+•	Bu attribute'u bir sınıfa ve o sınıfın içindeki en az 3 metoda uygulayınız.
+•	Reflection teknolojisini kullanarak (Type, MethodInfo, MemberInfo, GetCustomAttributes):
+o	Sınıfın tip bilgisini çözünüz.
+o	Metotların isimlerini tarayınız.
+o	Her metot üzerindeki attribute değerlerini okuyunuz.
+•	Elde ettiğiniz bu verileri düzenli bir "Attribute Raporu" olarak konsol ekranına yazdırınız.
+BÖLÜM 2: ASP.NET Core Web API
+Solution içerisine bir ASP.NET Core Web API projesi ekleyiniz.
+2.1. Model Validasyon ve Controller
+•	ProductDto isminde bir model oluşturunuz.
+•	Model üzerinde [Required], [Range], [StringLength] gibi validation attribute'larını kullanınız.
+•	ProductsController isminde bir controller oluşturunuz.
+•	Listeleme, ID ile getirme, Ekleme ve Silme (CRUD) işlemlerini yapan endpoint'leri yazınız.
+•	Routing işlemlerini attribute bazlı yapınız (Örn: [HttpGet("{id}")], [HttpPost]).
+2.2. Middleware ve Filter Mimarisi
+API'nizin yaşam döngüsüne müdahale eden aşağıdaki yapıları kurunuz:
+1.	Custom Middleware:
+o	Her gelen isteğin (Request) HTTP metodunu, URL yolunu ve zamanını loglayınız.
+o	Her dönen yanıtın (Response) Status Code bilgisini loglayınız.
+2.	Action Filter:
+o	Bir action çalışmaya başladığında süreyi başlatıp, bittiğinde geçen toplam süreyi hesaplayıp konsola yazan bir filter geliştiriniz.
+3.	Exception Filter:
+o	API genelinde oluşabilecek beklenmeyen hataları yakalayan bir filter yazınız.
+o	Hata durumunda istemciye standart bir JSON hata modeli dönülmesini sağlayınız.
+2.3. İleri Seviye: Metadata Haritası (Reflection Endpoint)
+Bu bölüm ödevin en prestijli kısmıdır. API içinde Reflection kullanarak kendi kodunu analiz eden bir yapı kuracaksınız.
+•	SystemController adında bir controller ve GetAttributeMap adında bir endpoint (GET /api/system/attribute-map) oluşturunuz.
+•	Bu endpoint çalıştığında:
+o	Projedeki tüm Controller'ları reflection ile bulmalıdır.
+o	Her controller'ın içindeki Action (metot) listesini çıkarmalıdır.
+o	Bu action'ların üzerinde hangi HTTP attribute'larının ([HttpGet], [HttpPost], [Authorize] vb.) kullanıldığını analiz etmelidir.
+•	Sonuç olarak, API'nin haritasını çıkaran detaylı bir JSON verisi döndürmelidir.
+📄 BÖLÜM 3: Teslimat ve Raporlama
+Aşağıdaki materyalleri içeren tek bir .zip dosyası yükleyiniz:
+1.	Visual Studio Solution: Console ve Web API projelerinin kaynak kodları.
+2.	Proje Raporu (PDF - 4/6 Sayfa):
+o	Struct & Exceptions: Kod örnekleri ve ekran görüntüleri.
+o	Reflection Çıktısı: Console uygulamasındaki "Attribute Raporu"nun ekran görüntüsü.
+o	Middleware & Logs: API çalıştığında konsola düşen logların ekran görüntüsü.
+o	Metadata Map JSON: /api/system/attribute-map adresinden dönen JSON verisinin örneği.
+o	Kısa Açıklamalar: Yazdığınız kodların ne işe yaradığını kısaca açıklayan paragraflar.
+💡 İpuçları
+•	Console ve Web API projelerinin aynı solution altında olmasına dikkat ediniz.
+•	Reflection kullanırken System.Reflection ve System.Type sınıflarının dokümantasyonlarına göz atınız.
+•	Middleware sırasının (Pipeline) çalışma mantığını test ederek doğrulayınız.
+1. Konsol Uygulaması (Desktop/CLI): İlk kısım, klasik siyah ekran üzerinde çalışan, metin tabanlı bir masaüstü uygulamasıdır.
+2. ASP.NET Core Web API (Backend Web Uygulaması): İkinci kısım bir Web Uygulamasıdır, ancak "Headless" (Arayüzsüz) bir web uygulamasıdır.
+•	Arayüz Yoktur: HTML, CSS veya JavaScript içeren sayfalar yoktur.
+•	Veri Vardır: Tarayıcıdan veya Postman gibi araçlardan istek atıldığında geriye görsel sayfa değil, saf veri (JSON) döner.
+•	Çalışma Ortamı: Tıpkı bir web sitesi gibi bir sunucu (IIS Express veya Kestrel) üzerinde, bir portta (örn: localhost:5000) çalışır.
+Başarılar dilerim!

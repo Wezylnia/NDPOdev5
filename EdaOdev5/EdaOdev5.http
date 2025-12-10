@@ -1,0 +1,6 @@
+@EdaOdev5_HostAddress = http://localhost:5084
+
+GET {{EdaOdev5_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
